@@ -1,0 +1,57 @@
+extract obj_props
+
+// instead of making a vortex
+// i made a circle
+// LOL
+
+GLOW_PIECE = 503
+CENTER_X = 50
+CENTER_Y = 50
+RADIUS = 50
+PRECISION = 16
+
+add_glows = (group) {
+  for i in 0..PRECISION {
+    let rot = 360 * i / PRECISION + 180
+    let fac = i / PRECISION * 2 * PI
+    let y_off = $.cos(fac) * RADIUS
+    let x_off = $.sin(fac) * RADIUS
+
+    let object = obj {
+      OBJ_ID: GLOW_PIECE,
+      X: CENTER_X + x_off,
+      Y: CENTER_Y + y_off,
+      ROTATION: rot
+    }
+
+    object.add_groups(group)
+  
+    $.add(object)
+  }
+}
+
+add_glows(3g);
+add_glows(4g);
+
+let center_obj = obj {
+  OBJ_ID: GLOW_PIECE,
+  X: CENTER_X,
+  Y: CENTER_Y
+}
+
+center_obj.add_groups(5g);
+center_obj.add_groups(1g);
+
+$.add(center_obj);
+
+left = 3g;
+right = 4g;
+center = 5g;
+
+// my alpha groups
+
+1g.alpha(0);
+2g.alpha(0.5);
+
+left.rotate(center, 360 * -10, 30);
+right.rotate(center, 360 * 10, 30);
